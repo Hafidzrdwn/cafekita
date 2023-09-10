@@ -1,0 +1,209 @@
+h4 {
+font-family: monospace !important;
+}
+
+.header-4 {
+margin-top: 55px;
+}
+
+a.navbar-brand,
+.spiciness,
+.card-link,
+.btn.all-product {
+color: #42c7c1 !important;
+}
+
+.count-banner {
+background-color: #eef1f5;
+}
+
+.badge-banner,
+a.btn {
+background-color: #42c7c1 !important;
+}
+
+a.btn-outline-light {
+border: 1px solid #42c7c1 !important;
+background-color: transparent !important;
+}
+
+a.btn-outline-light:focus,
+a.btn:focus {
+box-shadow: none !important;
+}
+
+a.btn:hover {
+color: #212529 !important;
+transition: 0.3s;
+background-color: #3bafa9 !important;
+}
+
+.btn.all-product:hover {
+color: white !important;
+}
+
+.badge.type {
+font-size: 16px !important;
+background-color: #42c7c1;
+position: absolute;
+top: 10px;
+left: 10px;
+}
+
+.order-input {
+width: 20% !important;
+}
+
+a.nav-link.active {
+color: #42c7c1 !important;
+}
+
+/* JUMBOTRON */
+.jumbotron {
+background-image: url(~@/assets/images/hero-img.jpg);
+background-size: cover;
+position: relative;
+height: 555px;
+background-repeat: no-repeat;
+background-position-y: -25px;
+background-attachment: fixed;
+margin-top: 62px;
+}
+
+.jumbotron::after {
+content: '';
+position: absolute;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, .3);
+}
+
+.jumbotron .container {
+position: absolute;
+z-index: 999;
+top: 48%;
+left: 50%;
+transform: translate(-50%, -50%);
+text-align: center;
+}
+
+.jumbotron .container h1 {
+font-size: 55px;
+}
+
+.jumbotron .container h1 span {
+color: #42c7c1;
+}
+
+/* END JUMBOTRON */
+
+/* CAROUSEL */
+.carousel {
+height: 600px !important;
+}
+
+.carousel-item1,
+.carousel-item2,
+.carousel-item3 {
+width: 100%;
+height: 600px;
+background-size: cover;
+background-repeat: no-repeat;
+}
+
+.carousel-item .carousel-item1 {
+background-image: url(~@/assets/images/banner-image1.jpg);
+}
+
+.carousel-item .carousel-item2 {
+background-image: url(~@/assets/images/banner-image2.jpg);
+}
+
+.carousel-item .carousel-item3 {
+background-image: url(~@/assets/images/banner-image3.jpg);
+background-position-y: -100px;
+}
+
+/* SMALL BANNER */
+.small-banner {
+position: relative;
+overflow: hidden;
+}
+
+.small-banner img {
+transition: 0.4s;
+filter: grayscale(1);
+cursor: pointer;
+}
+
+.small-banner img:hover {
+filter: grayscale(0);
+transform: scale(1.3);
+}
+
+.banner-label {
+transition: 0.4s;
+position: absolute;
+font-size: 20px;
+background-color: #42c7c1;
+padding: 10px 20px;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+opacity: 0;
+pointer-events: none;
+}
+
+.small-banner img:hover~.banner-label {
+opacity: 1;
+pointer-events: visible;
+}
+
+/* PRODUCT CARD */
+.card-link:hover {
+color: #38a7a1 !important;
+}
+
+/* FOOTER */
+.contact {
+color: #42c7c1 !important;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 576px) {
+.header-4 {
+  margin-top: 0;
+}
+
+.jumbotron {
+  background-attachment: initial;
+  height: 650px;
+  background-position-x: -200px;
+  margin-top: 0;
+}
+
+.jumbotron .container h1 {
+  font-size: 42px;
+}
+
+.jumbotron .container p {
+  font-size: 16px;
+}
+
+.carousel-item .carousel-item1 {
+  background-position-x: -300px;
+}
+
+.carousel-item .carousel-item2 {
+  background-position-x: -220px;
+}
+
+.carousel-item .carousel-item3 {
+  background-position-y: 0;
+}
+
+.small-banner img:hover {
+  filter: grayscale(0);
+  transform: scale(1);
+}
+}
