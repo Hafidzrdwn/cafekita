@@ -75,7 +75,7 @@ export default {
           id: 4,
           name: 'PASTA',
           category: 1,
-          price: 17500,
+          price: 30500,
           image: 'https://s3-ap-northeast-1.amazonaws.com/progate/shared/images/lesson/php/pasta.png',
         },
         {

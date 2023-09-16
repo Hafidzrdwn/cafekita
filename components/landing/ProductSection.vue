@@ -41,7 +41,7 @@ export default {
         {
           id: 2,
           nama: 'PASTA',
-          harga: 17500,
+          harga: 30500,
           image: 'https://s3-ap-northeast-1.amazonaws.com/progate/shared/images/lesson/php/pasta.png'
         },
         {

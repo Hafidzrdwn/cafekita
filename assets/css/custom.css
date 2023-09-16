@@ -1,6 +1,45 @@
+/* CUSTOM STYLE */
+.nav-link {
+  text-transform: uppercase;
+}
+.nav-link.active {
+  color: #42c7c1 !important;
+}
+
+.btn {
+  padding: 8px 25px;
+}
+.btn:focus {
+  box-shadow: none !important;
+}
+.btn:hover {
+  color: #212529 !important;
+  transition: 0.3s;
+  background-color: #3bafa9 !important;
+}
+
+.btn-uppercase {
+  text-transform: uppercase;
+  font-size: 15px;
+}
+.btn-custom {
+  background-color: #42c7c1 !important;
+}
+.btn-outline-custom {
+  border: 1px solid #42c7c1 !important;
+  background-color: transparent !important;
+  color: #eef1f5;
+}
+
+.text-custom {
+  color: #42c7c1 !important;
+}
+
+
 h4 {
 font-family: monospace !important;
 }
+
 
 .header-4 {
 margin-top: 55px;
@@ -17,25 +56,8 @@ color: #42c7c1 !important;
 background-color: #eef1f5;
 }
 
-.badge-banner,
-a.btn {
+.badge-banner {
 background-color: #42c7c1 !important;
-}
-
-a.btn-outline-light {
-border: 1px solid #42c7c1 !important;
-background-color: transparent !important;
-}
-
-a.btn-outline-light:focus,
-a.btn:focus {
-box-shadow: none !important;
-}
-
-a.btn:hover {
-color: #212529 !important;
-transition: 0.3s;
-background-color: #3bafa9 !important;
 }
 
 .btn.all-product:hover {
@@ -52,10 +74,6 @@ left: 10px;
 
 .order-input {
 width: 20% !important;
-}
-
-a.nav-link.active {
-color: #42c7c1 !important;
 }
 
 /* JUMBOTRON */
@@ -89,10 +107,6 @@ text-align: center;
 
 .jumbotron .container h1 {
 font-size: 55px;
-}
-
-.jumbotron .container h1 span {
-color: #42c7c1;
 }
 
 /* END JUMBOTRON */

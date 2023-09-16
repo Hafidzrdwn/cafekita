@@ -21,6 +21,11 @@ export default {
     AboutSection,
     BannerSection,
     ProductSection
+  },
+  head() {
+    return {
+      title: 'CafeKita | Modern Artistic Cafe in Surabaya'
+    }
   }
 }
 </script>
