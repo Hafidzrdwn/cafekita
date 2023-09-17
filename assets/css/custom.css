@@ -10,6 +10,11 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 /* CUSTOM STYLE */
 .nav-link {
   text-transform: uppercase;
@@ -45,6 +50,9 @@ body {
 
 .text-custom {
   color: #42c7c1 !important;
+}
+.bg-custom {
+  background-color: #42c7c1 !important;
 }
 
 .header-4 {
