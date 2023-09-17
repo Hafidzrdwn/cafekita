@@ -118,7 +118,14 @@ export default {
         hideName: this.form.hideName,
       }
 
-      this.testimonials.push(data)
+      if(this.form.nama !== "" && this.form.testimoni !== "") {
+        this.testimonials.push(data)
+        this.form.nama = ""
+        this.form.option = "semua"
+        this.form.testimoni = ""
+        this.form.hideName = false
+      }
+
     },
   }
 };
