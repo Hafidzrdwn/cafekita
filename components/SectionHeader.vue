@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="section-header">
-      <h2 class="title">{{ title }}</h2>
+      <h2 class="title" :class="checkTheme">{{ title }}</h2>
       <h4 class="subtitle">{{ subtitle }}</h4>
     </div>
   </div>
@@ -16,7 +16,17 @@ export default {
     },
     subtitle: {
       type: String,
+      default: '',
       required: false,
+    },
+    isDark: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  computed: {
+    checkTheme() {
+      return this.isDark ? 'text-light' : 'text-dark';
     },
   },
 };
@@ -29,7 +39,6 @@ export default {
 
 .section-header > .title {
   font-size: 40px;
-  color: #fff;
   margin-bottom: 10px;
   font-weight: 700;
 }

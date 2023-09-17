@@ -2,8 +2,8 @@
   <div>
     <Jumbotron />
     <AboutSection />
+    <BannerSection />
     <div class="container">
-      <BannerSection />
       <ProductSection />
     </div>
   </div>

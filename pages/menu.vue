@@ -11,7 +11,7 @@
                   <h5 class="font-monospace">Kategori : </h5>
                 </div>
                 <div class="col-8">
-                  <select class="form-select" v-model="kategori">
+                  <select v-model="kategori" class="form-select">
                     <option selected value="">Semua menu</option>
                     <option value="1">Makanan</option>
                     <option value="2">Minuman</option>
@@ -25,7 +25,7 @@
     <div class="container">
       <form>
       <div class="row mt-5">
-        <div class="col-sm-4" v-for="menu in filteredMenus" :key="menu.id">
+        <div v-for="menu in filteredMenus" :key="menu.id" class="col-sm-4">
           <div class="card mb-4">
             <img :src="menu.image" class="card-img-top">
               <div class="card-body">
@@ -138,6 +138,11 @@ export default {
       kategori: ''
     }
   },
+  head() {
+    return {
+      title: 'CafeKita | All Menu'
+    }
+  },
   computed: {
     filteredMenus() {
       if (this.kategori) {
@@ -148,7 +153,7 @@ export default {
 
       return this.menus
     }
-  }
+  },
 }
 </script>
 

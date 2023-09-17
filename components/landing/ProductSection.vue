@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-3 mt-2" v-for="menu in menus" :key="menu.id">
+      <div v-for="menu in menus" :key="menu.id" class="col-lg-3 mt-2">
         <div class="card shadow-sm mb-4 text-center">
           <img :src="menu.image" class="card-img-top" :alt="menu.nama" />
           <div class="card-body">
@@ -20,7 +20,7 @@
     </div>
     <div class="row justify-content-center text-center mt-4 mb-5">
       <div class="col-5">
-        <NuxtLink to="/menu" class="all-product btn btn-outline-light w-100">Menu Lainnya</NuxtLink>
+        <NuxtLink to="/menu" class="all-product btn btn-outline-custom w-100">Menu Lainnya</NuxtLink>
       </div>
     </div>
     <!-- END PRODUCT SECTION -->

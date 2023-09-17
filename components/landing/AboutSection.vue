@@ -2,7 +2,7 @@
   <div id="about" class="bg-dark">
     <!-- ABOUT SECTION -->
     <div class="container">
-      <SectionHeader title="Tentang Kami" subtitle="Tak kenal maka tak sayang" />
+      <SectionHeader title="Tentang Kami" subtitle="Tak kenal maka tak sayang" :is-dark="true" />
       <div class="row justify-content-between align-items-center">
         <div class="col-lg-6">
           <img src="~/assets/images/about-img.jpg" class="rounded w-100 mb-4" alt="">
