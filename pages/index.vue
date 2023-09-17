@@ -1,8 +1,8 @@
 <template>
   <div>
     <Jumbotron />
+    <AboutSection />
     <div class="container">
-      <AboutSection />
       <BannerSection />
       <ProductSection />
     </div>

@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
 /* CUSTOM STYLE */
 .nav-link {
   text-transform: uppercase;
@@ -34,12 +46,6 @@
 .text-custom {
   color: #42c7c1 !important;
 }
-
-
-h4 {
-font-family: monospace !important;
-}
-
 
 .header-4 {
 margin-top: 55px;
