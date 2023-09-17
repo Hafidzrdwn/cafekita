@@ -12,23 +12,23 @@
           Tell something about CafeKita to the public.
         </p>
 
-        <form @submit.prevent="handleForm" class="row">
+        <form class="row" @submit.prevent="handleForm">
           <div class="col-lg-6">
             <div class="mb-3">
               <label for="nama" class="form-label">Nama Lengkap</label>
               <input
+                id="nama" 
                 v-model="form.nama"
                 type="text"
                 class="form-control"
-                id="nama"
                 placeholder="Masukkan nama lengkap"
               />
             </div>
             <div>
               <label for="option" class="form-label">Pilihan Testimoni</label>
               <select
-                v-model="form.option"
                 id="option"
+                v-model="form.option"
                 class="form-select"
                 aria-label="Default select example"
               >
@@ -42,18 +42,18 @@
             <div class="mb-3">
               <label for="testimoni" class="form-label">Testimoni</label>
               <textarea
-                v-model="form.testimoni"
                 id="testimoni"
+                v-model="form.testimoni"
                 class="form-control"
                 placeholder="Ketikkan testimoni anda disini.."
               ></textarea>
             </div>
             <div class="form-check">
               <input
+                id="hideName"
                 v-model="form.hideName"
                 type="checkbox"
                 class="form-check-input"
-                id="hideName"
               />
               <label class="form-check-label" for="hideName"
                 >Sembunyikan nama anda</label
@@ -107,6 +107,11 @@ export default {
         }
       ]
     };
+  },
+  head() {
+    return {
+      title: 'CafeKita | Gallery'
+    }
   },
   methods: {
     handleForm() {
