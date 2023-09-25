@@ -1,25 +1,23 @@
 <template>
   <div>
-    <div class="container-fluid" style="margin-top: 62px;">
-      <div class="row count-banner p-4 justify-content-between align-items-center">
-          <div class="col-lg-6">
-              <h5 class="font-monospace">Jumlah Menu : <span class="badge badge-banner">{{ menus.length }}</span></h5>
-          </div>
-          <div class="col-lg-4 ms-auto">
-              <div class="row justify-content-center align-items-center">
-                <div class="col-4">
-                  <h5 class="font-monospace">Kategori : </h5>
-                </div>
-                <div class="col-8">
-                  <select v-model="kategori" class="form-select">
-                    <option selected value="">Semua menu</option>
-                    <option value="1">Makanan</option>
-                    <option value="2">Minuman</option>
-                  </select>
-                </div>
+    <div class="row count-banner p-4 justify-content-between align-items-center">
+        <div class="col-lg-6">
+            <h5 class="font-monospace">Jumlah Menu : <span class="badge badge-banner">{{ menus.length }}</span></h5>
+        </div>
+        <div class="col-lg-5 ms-auto">
+            <div class="row justify-content-center align-items-center">
+              <div class="col-4 text-end">
+                <h5 class="font-monospace">Kategori : </h5>
               </div>
-          </div>
-      </div>
+              <div class="col-8">
+                <select v-model="kategori" class="form-select">
+                  <option selected value="">Semua menu</option>
+                  <option value="1">Makanan</option>
+                  <option value="2">Minuman</option>
+                </select>
+              </div>
+            </div>
+        </div>
     </div>
 
     <div class="container">
@@ -34,8 +32,8 @@
                     {{ (menu.category == 1) ? 'Makanan' : 'Minuman' }}
                   </span>
                 <p class="card-text text-secondary">Harga : Rp. {{ menu.price }}</p>
-                <span>Jumlah Pesanan : </span>
-                <input class="order-input" type="number" min="0" value="0">
+                <!-- <span>Jumlah Pesanan : </span> -->
+                <NuxtLink :to="`/menu/${menu.id}`" class="btn btn-outline-custom text-custom hover-custom w-100">Detail Menu</NuxtLink>
               </div>
           </div>
           </div>

@@ -48,6 +48,10 @@ body {
   color: #eef1f5;
 }
 
+.btn-outline-custom.hover-custom:hover
+{
+  color: white !important;
+} 
 .text-custom {
   color: #42c7c1 !important;
 }
