@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -26,11 +28,16 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/custom.css'
+    '@/assets/css/custom.css',
+    '@/assets/css/menu.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    '@/plugins/supabase.client.js',
+    '@/plugins/sweetalert2.js',
+    '@/plugins/formatRupiah.js',
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -39,6 +46,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     "@nuxtjs/eslint-module",
+    "@nuxtjs/dotenv"
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -47,6 +55,7 @@ export default {
     "@nuxtjs/axios",
     // https://go.nuxtjs.dev/pwa
     "@nuxtjs/pwa",
+    "vue-sweetalert2/nuxt"
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -64,4 +73,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+  router: {
+    middleware: ["auth"],
+  },
 };

@@ -1,26 +1,26 @@
 <template>
-  <div>
-    <!-- PRODUCT SECTION -->
-    <div id="product" class="row mb-5 pb-2 border-bottom border-secondary">
-      <div class="col">
-        <h4 class="fw-bolder text-secondary header-4">Menu CafeKita</h4>
-      </div>
-    </div>
-    <div class="row">
-      <div v-for="menu in menus" :key="menu.id" class="col-lg-3 mt-2">
-        <div class="card shadow-sm mb-4 text-center">
+  <div id="product">
+    <SectionHeader title="Our Best Menu" subtitle="Highly rated recommended menu" :is-dark="false"> 
+      <NuxtLink to="/menu" class="all-product btn btn-outline-custom text-custom hover-custom w-100">Semua menu &raquo;</NuxtLink>
+    </SectionHeader>
+    <div class="row justify-content-center align-items-center mt-2">
+      <div v-for="menu in menus" :key="menu.id" class="col-lg-3">
+        <div class="card card-menu shadow-sm">
           <img :src="menu.image" class="card-img-top" :alt="menu.nama" />
-          <div class="card-body">
-            <h5 class="card-title"> {{ menu.nama }} </h5>
-            <h6 class="card-subtitle my-3 text-secondary">Rp. {{ menu.harga }}</h6>
-            <a href="#" class="card-link">Lihat Produk</a>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="m-0 card-title fw-bold"> {{ menu.nama }} </h5>
+              <div class="menu-rating">
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+            <p class="m-0 mt-1 mb-3 text-secondary">Rp. {{ menu.harga }}</p>
+            <p class="menu-desc">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit...
+            </p>
+            <a href="#" class="text-center card-link">Lihat Menu</a>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row justify-content-center text-center mt-4 mb-5">
-      <div class="col-5">
-        <NuxtLink to="/menu" class="all-product btn btn-outline-custom w-100">Menu Lainnya</NuxtLink>
       </div>
     </div>
     <!-- END PRODUCT SECTION -->
@@ -28,7 +28,12 @@
 </template>
 
 <script>
+import SectionHeader from "../SectionHeader.vue";
+
 export default {
+  components: {
+    SectionHeader,
+  },
   data() {
     return {
       menus: [
@@ -62,6 +67,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+#product {
+  padding: 90px 0 30px;
+}
 </style>

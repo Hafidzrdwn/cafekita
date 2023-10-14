@@ -1,160 +1,262 @@
 <template>
-  <div>
-    <div class="row count-banner p-4 justify-content-between align-items-center">
-        <div class="col-lg-6">
-            <h5 class="font-monospace">Jumlah Menu : <span class="badge badge-banner">{{ menus.length }}</span></h5>
+  <div id="indexOfMenu">
+    <JumbotronMenu />
+    <SearchBar @search="handleSearch" @reset="handleResetSearch" />
+    <div id="allmenu" class="menus-container mt-5 pt-4 px-0 container">
+      <div class="row justify-content-center align-items-start">
+        <div class="col-lg-3 p-3 border rounded shadow-sm left-box">
+          <FilterMenu @filter="handleFilter" ref="filterComponent" />
         </div>
-        <div class="col-lg-5 ms-auto">
-            <div class="row justify-content-center align-items-center">
-              <div class="col-4 text-end">
-                <h5 class="font-monospace">Kategori : </h5>
-              </div>
-              <div class="col-8">
-                <select v-model="kategori" class="form-select">
-                  <option selected value="">Semua menu</option>
-                  <option value="1">Makanan</option>
-                  <option value="2">Minuman</option>
-                </select>
+        <div class="col-lg-9 ps-4 pe-0 right-box">
+          <h3>"{{ searchKeyword }}"</h3>
+          <p class="text-secondary mb-4" v-if="menus && menus.length > 0">Menampilkan {{ rangeLength }} menu dari total {{
+            allMenuLenght }} menu.</p>
+          <p class="text-secondary mb-4" v-else>Menampilkan 0 menu.</p>
+          <div v-if="menus && !loading">
+            <div class="row" v-if="menus.length > 0">
+              <div v-for="menu in menus" :key="menu.id" class="col-4">
+                <div class="card shadow-sm mb-4 position-relative overflow-hidden">
+                  <img :src="menu.image" alt="image menu" class="card-img-top">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="m-0 card-title fw-bold"> {{ (menu.name.length > 13) ? menu.name.slice(0, 13 - 3) + '...'
+                        : menu.name }} </h5>
+                      <span class="badge bg-custom">{{ menu.categories.category }}</span>
+                    </div>
+                    <p class="m-0 mt-1 mb-3 text-secondary">{{ $rupiah(menu.price, { floatingPoint: 0 }) }}</p>
+                    <NuxtLink :to="`/menu/${menu.id}`" class="btn btn-outline-custom text-custom hover-custom w-100">
+                      <i class="fas fa-info-circle me-1"></i>Detail Menu
+                    </NuxtLink>
+                    <div class="add-to-cart mt-2 mb-3">
+                      <button class="btn btn-custom w-100 text-light hover-custom">
+                        <i class="fas fa-shopping-cart me-2"></i>Tambah Pesanan
+                      </button>
+                    </div>
+                    <div class="menu-small-information text-center">
+                      <p class="small text-secondary m-0">{{ menu.released_date.split('-').shift() }} | 200+ Terjual</p>
+                    </div>
+                  </div>
+                  <div class="best-menu-badge position-absolute">
+                    <i class="fas fa-star text-light fs-5"></i>
+                  </div>
+                </div>
               </div>
             </div>
-        </div>
-    </div>
-
-    <div class="container">
-      <form>
-      <div class="row mt-5">
-        <div v-for="menu in filteredMenus" :key="menu.id" class="col-sm-4">
-          <div class="card mb-4">
-            <img :src="menu.image" class="card-img-top">
-              <div class="card-body">
-                <h5 class="card-title">{{ menu.name }}</h5>
-                  <span class="badge type">
-                    {{ (menu.category == 1) ? 'Makanan' : 'Minuman' }}
-                  </span>
-                <p class="card-text text-secondary">Harga : Rp. {{ menu.price }}</p>
-                <!-- <span>Jumlah Pesanan : </span> -->
-                <NuxtLink :to="`/menu/${menu.id}`" class="btn btn-outline-custom text-custom hover-custom w-100">Detail Menu</NuxtLink>
+            <div class="row mt-5" v-else>
+              <div class="col-12 text-center">
+                <h4 class="text-secondary">Menu Sedang Kosong.</h4>
               </div>
+            </div>
           </div>
+          <div v-else-if="menus && loading">
+            <div class="row">
+              <div class="col-4 text-center" v-for="index in this.menus.length" :key="index">
+                <div class="card shadow-sm mb-4" aria-hidden="true">
+                  <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect></svg>
+                  <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between placeholder-glow mb-3">
+                      <span class="placeholder col-6"></span>
+                      <span class="placeholder col-4"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow d-flex">
+                      <span class="placeholder col-4"></span>
+                    </p>
+                    <a class="btn btn-custom disabled placeholder col-12 mb-2" aria-disabled="true"></a>
+                    <a class="btn btn-custom disabled placeholder col-12" aria-disabled="true"></a>
+                    <p class="card-text placeholder-glow mt-2">
+                      <span class="placeholder col-5"></span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div class="row mt-5">
+              <div class="col-12 text-center">
+                <h4 class="text-custom">Loading All Menu...</h4>
+              </div>
+            </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import JumbotronMenu from "~/components/menu/index/JumbotronMenu.vue";
+import SearchBar from "~/components/menu/index/SearchBar.vue";
+import FilterMenu from "~/components/menu/index/FilterMenu.vue";
+
+import { supabase } from '~/plugins/supabase.client';
+import Toast from '~/plugins/toast';
+
 export default {
+  components: {
+    JumbotronMenu, SearchBar, FilterMenu
+  },
   data() {
     return {
-      menus: [
-        {
-          id: 1,
-          name: 'GULAI',
-          category: 1,
-          price: 15000,
-          image: 'https://s3-ap-northeast-1.amazonaws.com/progate/shared/images/lesson/php/curry.png',
-        },
-        {
-          id: 2,
-          name: 'ANEKA JUS',
-          category: 2,
-          price: 6000,
-          image: 'https://s3-ap-northeast-1.amazonaws.com/progate/shared/images/lesson/php/juice.png',
-        },
-        {
-          id: 3,
-          name: 'KOPI',
-          category: 2,
-          price: 5000,
-          image: 'https://s3-ap-northeast-1.amazonaws.com/progate/shared/images/lesson/php/coffee.png',
-        },
-        {
-          id: 4,
-          name: 'PASTA',
-          category: 1,
-          price: 30500,
-          image: 'https://s3-ap-northeast-1.amazonaws.com/progate/shared/images/lesson/php/pasta.png',
-        },
-        {
-          id: 5,
-          name: 'BURGER',
-          category: 1,
-          price: 27000,
-          image: 'https://images.unsplash.com/photo-1513185158878-8d8c2a2a3da3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80',
-        },
-        {
-          id: 6,
-          name: 'LEMON TEA',
-          category: 2,
-          price: 5000,
-          image: 'https://images.unsplash.com/photo-1599390719613-912787a6e65a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80',
-        },
-        {
-          id: 7,
-          name: 'MIE GORENG',
-          category: 1,
-          price: 12000,
-          image: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=692&q=80',
-        },
-        {
-          id: 8,
-          name: 'MILKSHAKE',
-          category: 2,
-          price: 9500,
-          image: 'https://images.pexels.com/photos/3727250/pexels-photo-3727250.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        },
-        {
-          id: 9,
-          name: 'AYAM GORENG',
-          category: 1,
-          price: 7500,
-          image: 'https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80',
-        },
-        {
-          id: 10,
-          name: 'NASI GORENG',
-          category: 1,
-          price: 12000,
-          image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=725&q=80',
-        },
-        {
-          id: 11,
-          name: 'GREEN TEA',
-          category: 2,
-          price: 6000,
-          image: 'https://images.unsplash.com/photo-1606377695906-236fdfcef767?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=874&q=80',
-        },
-        {
-          id: 12,
-          name: 'SATE',
-          category: 1,
-          price: 12000,
-          image: 'https://cdn.pixabay.com/photo/2016/09/14/20/51/sate-1670437_1280.jpg',
-        },
-      ],
-      kategori: ''
-    }
+      menus: null,
+      allMenuLenght: 0,
+      keyword: '',
+      loading: false,
+      highestPrice: 0,
+      listOfCategoryId: []
+    };
   },
   head() {
     return {
-      title: 'CafeKita | All Menu'
-    }
+      title: "CafeKita | All Menu",
+    };
   },
-  computed: {
-    filteredMenus() {
-      if (this.kategori) {
-        return this.menus.filter((menu) => {
-          return menu.category === parseInt(this.kategori)
+  mounted() {
+    this.getMenus('fetch')
+  },
+  methods: {
+    async getMenus(type = 'fetch') {
+      const { data, error } = await supabase
+        .from('menus')
+        .select(`
+          *,
+          categories (
+            category
+          )
+        `)
+
+      if (error) {
+        Toast.fire({
+          icon: 'error',
+          title: error.message
         })
+      } else {
+        if (type === 'fetch') {
+          this.menus = data
+        }
+
+        this.allMenuLenght = data.length
+        this.highestPrice = Math.max(...data.map(menu => menu.price))
+        this.listOfCategoryId = [...new Set(data.map(menu => menu.category_id))]
+      }
+    },
+    async handleSearch(keyword) {
+      this.keyword = keyword.trim()
+      this.loading = true
+      const { data, error } = await supabase
+        .from('menus')
+        .select(`
+          *,
+          categories (
+            category
+          )
+        `)
+        .ilike('name', `%${this.keyword}%`)
+
+      this.callFilter()
+
+      if (error) {
+        Toast.fire({
+          icon: 'error',
+          title: error.message
+        })
+      } else {
+        this.menus = data
+        this.getMenus('count')
+        this.loading = false
+      }
+    },
+    handleResetSearch() {
+      this.keyword = ''
+      this.handleSearch(this.keyword)
+    },
+    async handleFilter({ sortType, productType, priceType }) {
+      const priceMin = (priceType.min) ? priceType.min : 0
+      const priceMax = (priceType.max) ? priceType.max : this.highestPrice
+      const arrayProductType = (productType.length > 0) ? productType : this.listOfCategoryId
+
+      console.log(priceMin)
+      this.loading = true
+      const { data, error } = await supabase
+        .from('menus')
+        .select(`
+          *,
+          categories (
+            category
+          )
+        `)
+        .ilike('name', `%${this.keyword}%`)
+        .in('category_id', arrayProductType)
+        .gte('price', priceMin)
+        .lte('price', priceMax)
+        .order(this.sortFilter(sortType).column, this.sortFilter(sortType).order)
+
+      if (error) {
+        Toast.fire({
+          icon: 'error',
+          title: error.message
+        })
+      } else {
+        this.menus = data
+        this.getMenus('count')
+        this.loading = false
       }
 
-      return this.menus
+    },
+    callFilter() {
+      this.handleFilter({
+        sortType: this.$refs.filterComponent.sortType,
+        productType: this.$refs.filterComponent.productType,
+        priceType: this.$refs.filterComponent.priceType
+      })
+    },
+    sortFilter(type) {
+      switch (type.toLowerCase()) {
+        case 'default':
+          return {
+            column: 'created_at',
+            order: {
+              ascending: true,
+            }
+          }
+        case 'terbaru':
+          return {
+            column: 'created_at',
+            order: {
+              ascending: false,
+            }
+          }
+        case 'harga_max':
+          return {
+            column: 'price',
+            order: {
+              ascending: false,
+            }
+          }
+        case 'harga_min':
+          return {
+            column: 'price',
+            order: {
+              ascending: true,
+            }
+          }
+      }
     }
   },
-}
+
+  computed: {
+    rangeLength() {
+      if (this.menus.length > 1) {
+        return '1 - ' + this.menus.length
+      }
+
+      return this.menus.length
+    },
+    searchKeyword() {
+      return (this.keyword.trim()) ? this.keyword : 'Semua Menu'
+    }
+  }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

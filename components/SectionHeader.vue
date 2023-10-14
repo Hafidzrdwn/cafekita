@@ -1,8 +1,11 @@
 <template>
-  <div>
+  <div class="d-flex justify-content-between align-items-center">
     <div class="section-header">
       <h2 class="title" :class="checkTheme">{{ title }}</h2>
       <h4 class="subtitle">{{ subtitle }}</h4>
+    </div>
+    <div>
+      <slot></slot>
     </div>
   </div>
 </template>

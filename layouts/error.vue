@@ -7,7 +7,7 @@
   import error404 from '~/components/error/404.vue'
   export default {
     name: 'AppError',
-    layout: 'default',
+    layout: 'auth',
     props: ['error'],
     computed: {
       errorPage() {

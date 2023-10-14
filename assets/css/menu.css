@@ -1,0 +1,41 @@
+.menuJumbotron {
+  height: 535px;
+}
+.search-menu-container {
+  margin-top: -80px;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.best-menu-badge {
+  background: #42c7c1;
+  padding: 5px;
+  border-radius: 50%;
+  left: 7px;
+  top: 7px;
+}
+
+.menus-container {
+  width: 100%;
+  clear: both;
+}
+.menus-container::before, .menus-container::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.right-box {
+  display: inline-block;
+  vertical-align: top;  
+  float: right;
+}
+.left-box {
+  max-height: 480px;
+  display: inline-block;
+  position: sticky !important;
+  top: 100px;
+  float: left;
+}
