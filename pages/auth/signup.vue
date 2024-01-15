@@ -23,7 +23,9 @@
       </div>
       <div class="form-info d-flex justify-content-between align-items-center">
         <small class="text-secondary">Sudah mempunyai akun? <NuxtLink to="/auth/login">Log in</NuxtLink></small>
-        <button type="submit" class="btn btn-custom text-light hover-custom">Sign up</button>
+        <button type="submit" class="btn btn-custom text-light hover-custom" :class="{'disabled':loading}">
+          {{ (loading) ? 'Loading...' : 'Sign up' }}
+        </button>
       </div>
     </form>
   </div>
@@ -39,7 +41,8 @@ export default {
         fullname: '',
         email: '',
         password: ''
-      }
+      },
+      loading: false
     }
   },
   head() {
@@ -49,6 +52,7 @@ export default {
   },
   methods: {
     async handleSignUp() {
+      this.loading = true
       const { data, error } = await supabase.auth.signUp({
         email: this.user_data.email,
         password: this.user_data.password,
@@ -59,6 +63,7 @@ export default {
         }
       })
       if (error) {
+        this.loading = false
         this.inputValidation(error)
       } else {
         this.$swal.fire({
@@ -66,6 +71,7 @@ export default {
           title: 'Sign Up Success',
           text: 'Mohon lengkapi data diri anda untuk melanjutkan',
         }).then(() => {
+          this.loading = false
           localStorage.setItem('isLogin', true)
           localStorage.setItem('token', data.session.access_token)
           this.$router.push('/verify')
@@ -78,27 +84,24 @@ export default {
           icon: 'error',
           title: 'Nama lengkap harus diisi minimal 4 karakter'
         })
+        this.user_data.fullname = ''
       } else if (!this.user_data.email.trim()) {
         Toast.fire({
           icon: 'error',
           title: 'Email tidak valid'
         })
+        this.user_data.email = ''
       } else if (!this.user_data.password.trim() || this.user_data.password.trim().length < 6) {
         Toast.fire({
           icon: 'error',
           title: 'Password harus diisi minimal 6 karakter'
         })
+        this.user_data.password = ''
       } else {
         Toast.fire({
           icon: 'error',
           title: err.message
         })
-      }
-
-      this.user_data = {
-        fullname: '',
-        email: '',
-        password: ''
       }
     }
   }

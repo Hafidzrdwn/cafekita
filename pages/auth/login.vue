@@ -19,7 +19,7 @@
       </div>
       <div class="form-info d-flex justify-content-between align-items-center">
         <small class="text-secondary">Belum punya akun? <NuxtLink to="/auth/signup">Sign up</NuxtLink></small>
-        <button type="submit" class="btn btn-custom text-light hover-custom">Log in</button>
+        <button type="submit" class="btn btn-custom text-light hover-custom" :class="{'disabled':loading}">{{ (loading) ? 'Loading...' : 'Log in' }}</button>
       </div>
     </form>
   </div>
@@ -34,7 +34,8 @@ export default {
       user_data: {
         email: '',
         password: ''
-      }
+      },
+      loading: false
     }
   },
   head() {
@@ -44,12 +45,14 @@ export default {
   },
   methods: {
     async handleLogin() {
+      this.loading = true
       const { data, error } = await supabase.auth.signInWithPassword({
         email: this.user_data.email,
         password: this.user_data.password,
       })
 
       if (error) {
+        this.loading = false
         this.inputValidation(error)
       } else {
         this.$swal.fire({
@@ -58,6 +61,7 @@ export default {
           text: 'Selamat datang di CafeKita',
           confirmButtonText: 'Explore CafeKita',
         }).then(() => {
+          this.loading = false
           localStorage.setItem('isLogin', true)
           localStorage.setItem('token', data.session.access_token)
           document.location.href = '/'
@@ -70,21 +74,18 @@ export default {
           icon: 'error',
           title: 'Email tidak valid'
         })
+        this.user_data.email = ''
       } else if (!this.user_data.password.trim() || this.user_data.password.trim().length < 6) {
         Toast.fire({
           icon: 'error',
           title: 'Password harus diisi minimal 6 karakter'
         })
+        this.user_data.password = ''
       } else {
         Toast.fire({
           icon: 'error',
           title: err.message
         })
-      }
-
-      this.user_data = {
-        email: '',
-        password: ''
       }
     }
   }
